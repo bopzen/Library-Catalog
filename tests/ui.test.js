@@ -296,7 +296,7 @@ test('Login and verify no books are displayed', async ({ page}) => {
     expect(noBookMesssage).toBe('No books in database!');
 });
 
-test.only('Login and navigate to Details page', async ({ page}) => {
+test('Login and navigate to Details page', async ({ page}) => {
     await page.goto('http://localhost:3000/login');
     await page.fill('input[name="email"]', 'peter@abv.bg');
     await page.fill('input[name="password"]', '123456');
@@ -313,3 +313,16 @@ test.only('Login and navigate to Details page', async ({ page}) => {
     const detailsPageTitle = await page.textContent('.book-information h3');
     expect(detailsPageTitle).toBe('Test Book');
 });
+
+test('Verify redirection of Logout link after user login', async ({ page}) => {
+    await page.goto('http://localhost:3000/login');
+    await page.fill('input[name="email"]', 'peter@abv.bg');
+    await page.fill('input[name="password"]', '123456');
+
+    const logoutLink = await page.$('a[href="javascript:void(0)"]');
+    await logoutLink.click();
+
+    const redirectedURL = page.url();
+    expect(redirectedURL).toBe('http://localhost:3000/catalog');
+});
+
