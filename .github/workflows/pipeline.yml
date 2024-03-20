@@ -28,5 +28,7 @@ jobs:
       run: npm run start-be &
     - name: Start FE
       run: npm run start-fe &
+    - name: Sleep 5 secs
+      run: sleep 5
     - name: UI Tests
       run: npm run test-ui
