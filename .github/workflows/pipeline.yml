@@ -22,13 +22,13 @@ jobs:
         cache: 'npm'
     - name: Install Dependencies
       run: npm install 
-    - name: Install browsers
-      run: npx playwright install
     - name: Start BE
       run: npm run start-be &
     - name: Start FE
       run: npm run start-fe &
     - name: Sleep 5 secs
       run: sleep 5
+    - name: Install browsers
+      run: npx playwright install
     - name: UI Tests
       run: npm run test-ui
