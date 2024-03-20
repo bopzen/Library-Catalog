@@ -11,7 +11,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-
     steps:
     - name: Checkout repository code 
       uses: actions/checkout@v3
@@ -34,3 +33,25 @@ jobs:
       run: npx playwright install
     - name: UI Tests
       run: npm run test-ui
+
+  deploy_be_app:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    needs: build_and_test
+    steps:
+      - name: Deploy BE app to production
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.SERVICE_BE_ID }}
+          api-key: ${{ secrets.RENDER_TOKEN }}
+
+  deploy_fe_app:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    needs: deploy_be_app
+    steps:
+      - name: Deploy FE app to production
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.SERVICE_FE_ID }}
+          api-key: ${{ secrets.RENDER_TOKEN }}
