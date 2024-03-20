@@ -36,7 +36,7 @@ jobs:
 
   deploy_be_app:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
     needs: build_and_test
     steps:
       - name: Deploy BE app to production
@@ -47,7 +47,7 @@ jobs:
 
   deploy_fe_app:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
     needs: deploy_be_app
     steps:
       - name: Deploy FE app to production
