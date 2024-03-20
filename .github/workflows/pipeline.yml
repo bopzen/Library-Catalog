@@ -24,6 +24,8 @@ jobs:
       run: npm install 
     - name: Start BE
       run: npm run start-be &
+    - name: Sleep 5 secs
+      run: sleep 5
     - name: Start FE
       run: npm run start-fe &
     - name: Sleep 5 secs
